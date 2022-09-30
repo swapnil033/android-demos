@@ -23,6 +23,7 @@
             android:textSize="66sp"
             android:textStyle="bold"
             android:typeface="serif"
+            android:text="@{String.valueOf(viewModel.count)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
