@@ -1,1 +1,1 @@
-# android-demos
+# Simple View Model example
