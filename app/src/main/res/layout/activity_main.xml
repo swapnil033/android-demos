@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="@string/enter_number"
-            android:text="@={viewModel.addValue + ``}"
+            android:text="@={viewModel._addValue}"
             android:ems="10"
             android:inputType="numberSigned"
             app:layout_constraintEnd_toEndOf="parent"

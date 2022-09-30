@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         binding.button.setOnClickListener {
             viewModel.addInTotal()
