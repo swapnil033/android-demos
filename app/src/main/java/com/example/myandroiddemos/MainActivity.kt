@@ -8,18 +8,19 @@ import androidx.lifecycle.get
 import com.example.myandroiddemos.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding : ActivityMainBinding
-    lateinit var viewModel: MainActivityViewModel
-
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainActivityViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
-        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        binding.resultTextView.text = viewModel.getTotal().toString()
 
-        binding.button.setOnClickListener {
-            viewModel.addInTotal()
+        binding.insertButton.setOnClickListener {
+            viewModel.setTotal(binding.inputEditText.text.toString().toInt())
+            binding.resultTextView.text = viewModel.getTotal().toString()
+
         }
+
     }
 }
