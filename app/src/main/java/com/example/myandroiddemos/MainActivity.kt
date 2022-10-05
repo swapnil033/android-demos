@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -15,9 +16,9 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(IO).launch {
             Log.i("TAG", "transaction started ...")
-            val stock1 = getStock1()
-            val stock2 = getStock2()
-            val total = stock1 + stock2
+            val stock1 = async { getStock1() }
+            val stock2 = async { getStock2() }
+            val total = stock1.await() + stock2.await()
             Log.i("TAG", "onCreate: $total")
         }
 
