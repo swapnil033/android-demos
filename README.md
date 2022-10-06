@@ -1,1 +1,1 @@
-# android-demos
+# view model scope
