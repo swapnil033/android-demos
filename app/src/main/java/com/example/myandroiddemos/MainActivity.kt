@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         binding.btnDownloadUserData.setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 //downloadUserData()
-                binding.tvUserMessage.text = UserDataManager().getTotalUserCount().toString()
+                //binding.tvUserMessage.text = UserDataManager().getTotalUserCount().toString()
+                binding.tvUserMessage.text = UserDataManager2().getTotalUserCount().toString()
             }
         }
     }
