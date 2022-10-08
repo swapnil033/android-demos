@@ -25,3 +25,6 @@ added validation [SubscriberViewModel.kt](app/src/main/java/com/example/myandroi
 
 ### 7th commit
 added user validation [SubscriberViewModel.kt](app/src/main/java/com/example/myandroiddemos/SubscriberViewModel.kt)
+
+### 8th commit
+used [SubscriberAdapter.kt](app/src/main/java/com/example/myandroiddemos/adapter/SubscriberAdapter.kt) in efficient way

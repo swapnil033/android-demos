@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
     private lateinit var viewModel: SubscriberViewModel
+    private lateinit var adapter: SubscriberAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,13 +44,16 @@ class MainActivity : AppCompatActivity() {
     private fun initRecyclerView() {
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = SubscriberAdapter { subscriber -> itemClick(subscriber) }.apply {
+            binding.recyclerView.adapter = this
+        }
         displayList()
     }
 
     private fun displayList(){
         viewModel.subscribers.observe(this){
             Log.d(TAG, "displayList: ${it.toString()}")
-            binding.recyclerView.adapter = SubscriberAdapter(it) { subscriber -> itemClick(subscriber) }
+            adapter.setList(it)
         }
     }
 
