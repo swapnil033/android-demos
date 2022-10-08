@@ -21,4 +21,7 @@ added [SubscriberAdapter.kt](app/src/main/java/com/example/myandroiddemos/adapte
 edited [SubscriberViewModel.kt](app/src/main/java/com/example/myandroiddemos/SubscriberViewModel.kt)
 
 ### 6th commit
-added validation
+added validation [SubscriberViewModel.kt](app/src/main/java/com/example/myandroiddemos/SubscriberViewModel.kt)
+
+### 7th commit
+added user validation [SubscriberViewModel.kt](app/src/main/java/com/example/myandroiddemos/SubscriberViewModel.kt)

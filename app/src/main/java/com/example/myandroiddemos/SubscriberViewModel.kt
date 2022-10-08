@@ -1,5 +1,6 @@
 package com.example.myandroiddemos
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.example.myandroiddemos.db.SubscriberRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.regex.Pattern
 
 class SubscriberViewModel(private val repository: SubscriberRepository) : ViewModel() {
 
@@ -34,15 +36,25 @@ class SubscriberViewModel(private val repository: SubscriberRepository) : ViewMo
     }
 
     fun saveOrUpdate(){
-        if (isUpdateOrDelete) {
-            selectedSubscriber.name = inputName.value!!
-            selectedSubscriber.email = inputEmail.value!!
-            update(selectedSubscriber)
+
+        if(inputName.value == null){
+            _statusMessage.value = Event("Please enter name")
         }
-        else {
-            insert(Subscriber(0, inputName.value!!, inputEmail.value!!))
-            inputName.value = ""
-            inputEmail.value = ""
+        else if(inputEmail.value == null){
+            _statusMessage.value = Event("Please enter email")
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(inputEmail.value!!).matches()){
+            _statusMessage.value = Event("Please enter a correct email")
+        }else {
+            if (isUpdateOrDelete) {
+                selectedSubscriber.name = inputName.value!!
+                selectedSubscriber.email = inputEmail.value!!
+                update(selectedSubscriber)
+            } else {
+                insert(Subscriber(0, inputName.value!!, inputEmail.value!!))
+                inputName.value = ""
+                inputEmail.value = ""
+            }
         }
     }
 
