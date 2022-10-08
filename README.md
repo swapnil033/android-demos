@@ -19,3 +19,6 @@ create [SubscriberRepository.kt](app/src/main/res/layout/row_subscriber.xml)
 ### 5th commit
 added [SubscriberAdapter.kt](app/src/main/java/com/example/myandroiddemos/adapter/SubscriberAdapter.kt)
 edited [SubscriberViewModel.kt](app/src/main/java/com/example/myandroiddemos/SubscriberViewModel.kt)
+
+### 6th commit
+added validation

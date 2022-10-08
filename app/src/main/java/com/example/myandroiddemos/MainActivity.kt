@@ -31,6 +31,12 @@ class MainActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        viewModel.statusMessage.observe(this){
+            it.getContentIfNotHandled()?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        }
+
         initRecyclerView()
     }
 
@@ -48,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun itemClick(subscriber: Subscriber){
-        Toast.makeText(this, "selected subscriber is ${subscriber.name}", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "selected subscriber is ${subscriber.name}", Toast.LENGTH_SHORT).show()
         viewModel.initUpdateAndDelete(subscriber)
     }
 
