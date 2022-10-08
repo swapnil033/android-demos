@@ -9,5 +9,5 @@ create [SubscriberDAO.kt](app/src/main/java/com/example/myandroiddemos/db/Subscr
 ### 3nd commit
 create [SubscriberDatabase.kt](app/src/main/java/com/example/myandroiddemos/db/SubscriberDatabase.kt) Database class
 
-### 3nd commit
+### 4th commit
 create [SubscriberRepository.kt](app/src/main/java/com/example/myandroiddemos/db/SubscriberRepository.kt) Repository class
