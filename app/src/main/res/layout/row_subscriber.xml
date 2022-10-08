@@ -4,6 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <variable
+            name="model"
+            type="com.example.myandroiddemos.db.Subscriber" />
+
+    </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,6 +34,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:text="@{model.name}"
                 tools:text="Name" />
 
             <TextView
@@ -37,6 +46,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2"
+                android:text="@{model.email}"
                 tools:text="Email" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

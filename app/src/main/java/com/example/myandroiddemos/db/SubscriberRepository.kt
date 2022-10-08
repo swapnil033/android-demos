@@ -2,7 +2,7 @@ package com.example.myandroiddemos.db
 
 class SubscriberRepository(private val dao: SubscriberDAO) {
 
-    val subsciber = dao.getAllSubscriber()
+    val subscibers = dao.getAllSubscriber()
 
     suspend fun insert(subscriber: Subscriber){
         dao.insertSubscriber(subscriber)
@@ -12,7 +12,11 @@ class SubscriberRepository(private val dao: SubscriberDAO) {
         dao.updateSubscriber(subscriber)
     }
 
-    suspend fun deleteAll(subscriber: Subscriber){
+    suspend fun delete(subscriber: Subscriber){
+        dao.deleteSubscriber(subscriber)
+    }
+
+    suspend fun deleteAll(){
         dao.deleteAll()
     }
 
