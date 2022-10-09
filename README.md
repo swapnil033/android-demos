@@ -11,3 +11,6 @@ added [RetrofitInstance](app/src/main/java/com/example/myandroiddemos/retrofit/R
 
 ### 4th commit
 called get api [MainActivity](app/src/main/java/com/example/myandroiddemos/MainActivity.kt)
+
+### 5th commit
+added Query parameter in [AlbumService.kt](app/src/main/java/com/example/myandroiddemos/retrofit/AlbumService.kt)

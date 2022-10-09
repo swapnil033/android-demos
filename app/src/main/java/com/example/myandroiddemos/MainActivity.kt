@@ -20,16 +20,44 @@ class MainActivity : AppCompatActivity() {
 
         var retInstance = RetrofitInstance.getInstance().create(AlbumService::class.java)
 
-        val albumResponse : LiveData<Response<Album>> = liveData {
-            val responce = retInstance.getAlbums()
-            emit(responce)
+        //getAllAlbums(retInstance)
+        getUserAlbums(retInstance, 3)
+    }
+
+    private fun getUserAlbums(retInstance: AlbumService, i: Int) {
+
+        val albumResponse: LiveData<Response<Album>> = liveData {
+            val response = retInstance.getAlbums(i)
+            emit(response)
         }
 
-        albumResponse.observe(this){
+        albumResponse.observe(this) {
             val list = it.body()!!.listIterator()
 
-            if(list != null){
-                while (list.hasNext()){
+            if (list != null) {
+                while (list.hasNext()) {
+                    val album = list.next()
+                    val responseString = " Album id : ${album.id} \n" +
+                            " Album title : ${album.title} \n" +
+                            " Album user id : ${album.userId} \n\n\n"
+
+                    binding.textView.append(responseString)
+                }
+            }
+        }
+    }
+
+    private fun getAllAlbums(retInstance: AlbumService) {
+        val albumResponse: LiveData<Response<Album>> = liveData {
+            val response = retInstance.getAlbums()
+            emit(response)
+        }
+
+        albumResponse.observe(this) {
+            val list = it.body()!!.listIterator()
+
+            if (list != null) {
+                while (list.hasNext()) {
                     val album = list.next()
                     val responseString = " Album id : ${album.id} \n" +
                             " Album title : ${album.title} \n" +
