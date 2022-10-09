@@ -8,7 +8,7 @@ class RetrofitInstance {
     companion object {
         val BASE_URL = "https://jsonplaceholder.typicode.com"
 
-        fun getRetrofitInstance() : Retrofit{
+        fun getInstance() : Retrofit{
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
