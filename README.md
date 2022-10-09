@@ -17,3 +17,6 @@ added Query parameter in [AlbumService.kt](app/src/main/java/com/example/myandro
 
 ### 6th commit
 added Path parameter in [AlbumService.kt](app/src/main/java/com/example/myandroiddemos/retrofit/AlbumService.kt)
+
+### 7th commit
+added Interceptor and client in [RetrofitInstance.kt](app/src/main/java/com/example/myandroiddemos/retrofit/RetrofitInstance.kt)
