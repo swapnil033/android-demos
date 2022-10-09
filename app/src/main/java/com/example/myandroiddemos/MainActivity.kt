@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.myandroiddemos.databinding.ActivityMainBinding
 import com.example.myandroiddemos.model.Album
+import com.example.myandroiddemos.model.AlbumItem
 import com.example.myandroiddemos.retrofit.AlbumService
 import com.example.myandroiddemos.retrofit.RetrofitInstance
 import retrofit2.Response
@@ -18,16 +19,36 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-        var retInstance = RetrofitInstance.getInstance().create(AlbumService::class.java)
+        val retInstance = RetrofitInstance.getInstance().create(AlbumService::class.java)
 
         //getAllAlbums(retInstance)
-        getUserAlbums(retInstance, 3)
+        //getUserAlbumsByUserId(retInstance, 3)
+        getUserAlbumsByAlbumId(retInstance, 3)
     }
 
-    private fun getUserAlbums(retInstance: AlbumService, i: Int) {
+    private fun getUserAlbumsByAlbumId(retInstance: AlbumService, id: Int) {
+
+        val albumResponse : LiveData<Response<AlbumItem>> = liveData {
+            val response = retInstance.getAlbumsByAlbumId(id)
+            emit(response)
+        }
+
+
+        albumResponse.observe(this) {
+            val albumItem = it.body()!!
+
+            val responseString = " Album id : ${albumItem.id} \n" +
+                    " Album title : ${albumItem.title} \n" +
+                    " Album user id : ${albumItem.userId} \n\n\n"
+
+            binding.textView.append(responseString)
+        }
+    }
+
+    private fun getUserAlbumsByUserId(retInstance: AlbumService, i: Int) {
 
         val albumResponse: LiveData<Response<Album>> = liveData {
-            val response = retInstance.getAlbums(i)
+            val response = retInstance.getAlbumsByUserId(i)
             emit(response)
         }
 
@@ -49,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getAllAlbums(retInstance: AlbumService) {
         val albumResponse: LiveData<Response<Album>> = liveData {
-            val response = retInstance.getAlbums()
+            val response = retInstance.getAlbumsByUserId()
             emit(response)
         }
 

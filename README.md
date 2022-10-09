@@ -14,3 +14,6 @@ called get api [MainActivity](app/src/main/java/com/example/myandroiddemos/MainA
 
 ### 5th commit
 added Query parameter in [AlbumService.kt](app/src/main/java/com/example/myandroiddemos/retrofit/AlbumService.kt)
+
+### 6th commit
+added Path parameter in [AlbumService.kt](app/src/main/java/com/example/myandroiddemos/retrofit/AlbumService.kt)
