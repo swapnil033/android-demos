@@ -20,3 +20,6 @@ added Path parameter in [AlbumService.kt](app/src/main/java/com/example/myandroi
 
 ### 7th commit
 added Interceptor and client in [RetrofitInstance.kt](app/src/main/java/com/example/myandroiddemos/retrofit/RetrofitInstance.kt)
+
+### 8th commit
+added Time out in [RetrofitInstance.kt](app/src/main/java/com/example/myandroiddemos/retrofit/RetrofitInstance.kt)
