@@ -5,3 +5,6 @@ added [Album](app/src/main/java/com/example/myandroiddemos/model/Album.kt) & [Al
 
 ### 2nd commit
 added Interface [AlbumService](app/src/main/java/com/example/myandroiddemos/retrofit/AlbumService.kt) with url end points
+
+### 3rd commit
+added [RetrofitInstance](app/src/main/java/com/example/myandroiddemos/retrofit/RetrofitInstance.kt)
