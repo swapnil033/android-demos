@@ -8,3 +8,6 @@ added Interface [AlbumService](app/src/main/java/com/example/myandroiddemos/retr
 
 ### 3rd commit
 added [RetrofitInstance](app/src/main/java/com/example/myandroiddemos/retrofit/RetrofitInstance.kt)
+
+### 4th commit
+called get api [MainActivity](app/src/main/java/com/example/myandroiddemos/MainActivity.kt)
