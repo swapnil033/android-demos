@@ -23,3 +23,6 @@ added Interceptor and client in [RetrofitInstance.kt](app/src/main/java/com/exam
 
 ### 8th commit
 added Time out in [RetrofitInstance.kt](app/src/main/java/com/example/myandroiddemos/retrofit/RetrofitInstance.kt)
+
+### 9th commit
+added post api in [AlbumService.kt](app/src/main/java/com/example/myandroiddemos/retrofit/AlbumService.kt)

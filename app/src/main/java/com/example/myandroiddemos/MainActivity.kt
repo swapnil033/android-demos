@@ -23,7 +23,27 @@ class MainActivity : AppCompatActivity() {
 
         //getAllAlbums(retInstance)
         //getUserAlbumsByUserId(retInstance, 3)
-        getUserAlbumsByAlbumId(retInstance, 3)
+        //getUserAlbumsByAlbumId(retInstance, 3)
+        postCreateNewAlbum(retInstance, 3)
+    }
+
+    private fun postCreateNewAlbum(retInstance: AlbumService, id: Int) {
+        val albumItem = AlbumItem(0, "Swapnil | New Ablum" , id)
+
+        val postResponse : LiveData<Response<AlbumItem>> = liveData {
+            val response = retInstance.postCreateNewAlbum(albumItem)
+            emit(response)
+        }
+
+        postResponse.observe(this) {
+            val albumItem = it.body()!!
+
+            val responseString = " Album id : ${albumItem.id} \n" +
+                    " Album title : ${albumItem.title} \n" +
+                    " Album user id : ${albumItem.userId} \n\n\n"
+
+            binding.textView.append(responseString)
+        }
     }
 
     private fun getUserAlbumsByAlbumId(retInstance: AlbumService, id: Int) {

@@ -3,9 +3,7 @@ package com.example.myandroiddemos.retrofit
 import com.example.myandroiddemos.model.Album
 import com.example.myandroiddemos.model.AlbumItem
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface AlbumService {
 
@@ -17,5 +15,8 @@ interface AlbumService {
 
     @GET("/albums/{id}")
     suspend fun getAlbumsByAlbumId(@Path("id") albumId : Int) : Response<AlbumItem>
+
+    @POST("/albums")
+    suspend fun postCreateNewAlbum(@Body albumItem: AlbumItem) : Response<AlbumItem>
 
 }
