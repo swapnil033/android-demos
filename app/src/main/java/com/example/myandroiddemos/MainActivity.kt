@@ -1,8 +1,11 @@
 package com.example.myandroiddemos
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,12 +34,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun displayNotification() {
         val notificationID = 45
+        val tapIntent = Intent(this, SecondActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            tapIntent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
         val notification = NotificationCompat.Builder(this, channelID)
             .setContentTitle("Android Demo App 1")
             .setContentText("this is testing notification 1")
             .setSmallIcon(android.R.drawable.ic_dialog_map)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent)
             .build()
         notificationManager?.notify(notificationID, notification)
     }
