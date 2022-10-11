@@ -10,6 +10,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
+import androidx.core.app.RemoteInput
 import androidx.databinding.DataBindingUtil
 import com.example.myandroiddemos.databinding.ActivityMainBinding
 
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private val channelID = "com.example.myandroiddemos.channel1"
     private var notificationManager : NotificationManager? = null
+    private val KEY_REPLY = "key reply"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,32 +37,33 @@ class MainActivity : AppCompatActivity() {
     private fun displayNotification() {
         val notificationID = 45
         val tapIntent = Intent(this, SecondActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.getActivity(
+                this,
+                0,
+                tapIntent,
+                PendingIntent.FLAG_MUTABLE
+            )
+        } else {PendingIntent.getActivity(
             this,
             0,
             tapIntent,
             PendingIntent.FLAG_IMMUTABLE
         )
+        }
 
-        //action1
-        val tapIntentAction1 = Intent(this, DetailsActivity::class.java)
-        val pendingIntentAction1 = PendingIntent.getActivity(
-            this,
-            0,
-            tapIntentAction1,
-            PendingIntent.FLAG_IMMUTABLE
-        )
-        val action1 = NotificationCompat.Action.Builder(0,"Details", pendingIntentAction1).build()
+        //reply action
+        val remoteInput = RemoteInput.Builder(KEY_REPLY).run {
+            setLabel("Insert Your Name")
+            build()
+        }
 
-        //action2
-        val tapIntentAction2 = Intent(this, SettingsActivity::class.java)
-        val pendingIntentAction2 = PendingIntent.getActivity(
-            this,
+        val replayAction = NotificationCompat.Action.Builder(
             0,
-            tapIntentAction2,
-            PendingIntent.FLAG_IMMUTABLE
-        )
-        val action2 = NotificationCompat.Action.Builder(0,"Settings", pendingIntentAction2).build()
+            "Reply",
+            pendingIntent,
+        ).addRemoteInput(remoteInput)
+            .build()
 
 
         val notification = NotificationCompat.Builder(this, channelID)
@@ -69,9 +72,7 @@ class MainActivity : AppCompatActivity() {
             .setSmallIcon(android.R.drawable.ic_dialog_map)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent)
-            .addAction(action1)
-            .addAction(action2)
+            .addAction(replayAction)
             .build()
         notificationManager?.notify(notificationID, notification)
     }
