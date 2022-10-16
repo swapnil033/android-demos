@@ -1,1 +1,1 @@
-# Dagger 2 Field Injection Demo
+# Dagger 2 State of Module Demo
