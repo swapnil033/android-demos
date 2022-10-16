@@ -1,3 +1,1 @@
-# android-demos
-
-this branch contain base project
+# Work Manager Simple Demo
