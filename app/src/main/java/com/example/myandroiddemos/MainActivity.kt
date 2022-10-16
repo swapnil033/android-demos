@@ -17,9 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        DaggerSmartPhoneComponent.builder()
-            .memoryCardModule(MemoryCardModule(4000))
-            .build()
+        (application as SmartPhoneApplication).smartPhoneComponent
             .inject(this)
 
         smartPhone.makeACall()

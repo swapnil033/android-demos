@@ -1,1 +1,1 @@
-# Dagger 2 State of Module Demo
+# Dagger 2 Application Class
