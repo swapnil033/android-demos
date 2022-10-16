@@ -9,7 +9,7 @@ import java.lang.Exception
 class MyWorker(context: Context, parameters: WorkerParameters) : Worker(context, parameters) {
     override fun doWork(): Result {
         return try{
-            for (i in 0..6000) {
+            for (i in 0..60000) {
                 Log.i("MyWorker", "doWork: $i")
             }
             Result.success()

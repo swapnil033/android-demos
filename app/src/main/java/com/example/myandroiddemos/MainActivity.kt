@@ -23,10 +23,15 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setOneTimeWorkRequest(){
+        val workManager = WorkManager.getInstance(applicationContext)
+
         val myWorker = OneTimeWorkRequest.Builder(MyWorker::class.java)
             .build()
 
-        WorkManager.getInstance(applicationContext)
-            .enqueue(myWorker)
+        workManager.enqueue(myWorker)
+        workManager.getWorkInfoByIdLiveData(myWorker.id)
+            .observe(this){
+                binding.textView.text = it.state.name
+            }
     }
 }
