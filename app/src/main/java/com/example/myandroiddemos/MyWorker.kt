@@ -21,7 +21,7 @@ class MyWorker(context: Context, parameters: WorkerParameters) : Worker(context,
             val data = inputData.getInt(MainActivity.KEY_COUNT, 0)
 
             for (i in 0 until data) {
-                Log.i("MyWorker", "doWork: $i")
+                Log.i("MyWorker", "MyWorker: $i")
             }
 
             val time = SimpleDateFormat("dd/M/yyyy hh:mm:ss")

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.work.*
 import com.example.myandroiddemos.databinding.ActivityMainBinding
 
@@ -43,16 +42,26 @@ class MainActivity : AppCompatActivity() {
             .setInputData(data)
             .build()
 
-        workManager.enqueue(myWorker)
+        val filterWorker = OneTimeWorkRequest.Builder(FilterWorker::class.java)
+            .build()
+        val compressingWorker = OneTimeWorkRequest.Builder(CompressingWorker::class.java)
+            .build()
+
+        workManager
+            .beginWith(filterWorker)
+            .then(compressingWorker)
+            .then(myWorker)
+            .enqueue()
+
         workManager.getWorkInfoByIdLiveData(myWorker.id)
-            .observe(this, Observer {
+            .observe(this) {
                 binding.textView.text = it.state.name
 
-                if(it.state.isFinished){
+                if (it.state.isFinished) {
                     val outputData = it.outputData.getString(MyWorker.KEY_WORKER)
                     Toast.makeText(this, outputData, Toast.LENGTH_SHORT).show()
                 }
 
-            })
+            }
     }
 }
