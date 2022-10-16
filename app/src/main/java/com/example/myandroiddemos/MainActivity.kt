@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.work.*
 import com.example.myandroiddemos.databinding.ActivityMainBinding
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,10 +22,10 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.button.setOnClickListener {
-            setOneTimeWorkRequest()
+            //setOneTimeWorkRequest()
+            setPeriodicWorkRequest()
         }
     }
-
 
     private fun setOneTimeWorkRequest(){
         val workManager = WorkManager.getInstance(applicationContext)
@@ -69,6 +70,25 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, outputData, Toast.LENGTH_SHORT).show()
                 }
 
+            }
+    }
+
+    private fun setPeriodicWorkRequest(){
+
+        val workManager = WorkManager.getInstance(applicationContext)
+
+        val downloadingWorker = PeriodicWorkRequest.Builder(DownloadingWorker::class.java, 16, TimeUnit.MINUTES)
+            .build()
+
+        workManager.enqueue(downloadingWorker)
+
+        workManager.getWorkInfoByIdLiveData(downloadingWorker.id)
+            .observe(this){
+                binding.textView.text = it.state.name
+
+                if (it.state.isFinished) {
+                    Toast.makeText(this, "Download Complete", Toast.LENGTH_SHORT).show()
+                }
             }
     }
 }
