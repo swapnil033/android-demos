@@ -46,9 +46,16 @@ class MainActivity : AppCompatActivity() {
             .build()
         val compressingWorker = OneTimeWorkRequest.Builder(CompressingWorker::class.java)
             .build()
+        val downloadingWorker = OneTimeWorkRequest.Builder(DownloadingWorker::class.java)
+            .build()
+
+        val workerList = listOf(
+            downloadingWorker,
+            filterWorker
+        )
 
         workManager
-            .beginWith(filterWorker)
+            .beginWith(workerList)
             .then(compressingWorker)
             .then(myWorker)
             .enqueue()
