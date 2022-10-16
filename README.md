@@ -1,1 +1,1 @@
-# Dagger 2 Application Class
+# Dagger 2 Singleton Demo
