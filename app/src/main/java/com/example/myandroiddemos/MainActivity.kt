@@ -13,12 +13,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val battery = Battery()
-        val memoryCard = MemoryCard()
-        val serviceProvider = ServiceProvider()
-        val simCard = SimCard(serviceProvider)
-
-        val smartPhone = SmartPhone(battery, memoryCard, simCard)
-        smartPhone.makeACall()
+        DaggerSmartPhoneComponent.create()
+            .getSmartPhone()
+            .makeACall()
     }
 }

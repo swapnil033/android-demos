@@ -1,8 +1,9 @@
 package com.example.myandroiddemos.smartPhone
 
 import android.util.Log
+import javax.inject.Inject
 
-class SimCard(private val serviceProvider: ServiceProvider) {
+class SimCard @Inject constructor(private val serviceProvider: ServiceProvider) {
 
     fun getConnection(){
         serviceProvider.getService()

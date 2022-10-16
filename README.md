@@ -1,1 +1,1 @@
-# Pure Dependency Injection Demo
+# Dagger 2 Demo
