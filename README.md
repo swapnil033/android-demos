@@ -1,1 +1,1 @@
-# Dagger 2 Demo
+# Dagger 2 Modules Demo
