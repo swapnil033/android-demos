@@ -5,6 +5,6 @@ import com.example.myandroiddemos.domain.repository.TvShowsRepository
 
 class UpdateTvShowsUseCase(private val tvShowsRepository: TvShowsRepository) {
 
-    suspend fun execute() : List<Tv>? = tvShowsRepository.getTvShows()
+    suspend fun execute() : List<Tv>? = tvShowsRepository.updateShows()
 
 }

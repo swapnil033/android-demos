@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/swapn/AndroidStudioProjects/practice/udemyAndroidPractice/MyAndroidDemos/app/src/main/res/layout/activity_main.xml" value="0.2388888888888889" />
+        <entry key="..\:/Users/swapn/AndroidStudioProjects/practice/udemyAndroidPractice/MyAndroidDemos/app/src/main/res/drawable/btn_rounded.xml" value="0.149" />
+        <entry key="..\:/Users/swapn/AndroidStudioProjects/practice/udemyAndroidPractice/MyAndroidDemos/app/src/main/res/layout/activity_artist.xml" value="0.25" />
+        <entry key="..\:/Users/swapn/AndroidStudioProjects/practice/udemyAndroidPractice/MyAndroidDemos/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/Users/swapn/AndroidStudioProjects/practice/udemyAndroidPractice/MyAndroidDemos/app/src/main/res/layout/activity_movie.xml" value="0.25" />
+        <entry key="..\:/Users/swapn/AndroidStudioProjects/practice/udemyAndroidPractice/MyAndroidDemos/app/src/main/res/layout/activity_tv_show.xml" value="0.25" />
+        <entry key="..\:/Users/swapn/AndroidStudioProjects/practice/udemyAndroidPractice/MyAndroidDemos/app/src/main/res/layout/list_item.xml" value="0.2" />
+        <entry key="..\:/Users/swapn/AndroidStudioProjects/practice/udemyAndroidPractice/MyAndroidDemos/app/src/main/res/menu/update.xml" value="0.24895833333333334" />
       </map>
     </option>
   </component>
