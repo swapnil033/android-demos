@@ -1,5 +1,6 @@
 package com.example.myandroiddemos.presentation.di.core
 
+import com.example.myandroiddemos.BuildConfig
 import com.example.myandroiddemos.data.api.TMDBService
 import com.example.myandroiddemos.data.repository.artist.dataSource.ArtistRemoteDataSource
 import com.example.myandroiddemos.data.repository.artist.dataSourceImpl.ArtistRemoteDataSourceImpl
@@ -9,17 +10,20 @@ import com.example.myandroiddemos.data.repository.tvShow.dataSource.TvShowRemote
 import com.example.myandroiddemos.data.repository.tvShow.dataSourceImpl.TvShowRemoteDataSourceImpl
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
-class RemoteDataModule(private val apiKey : String) {
+class RemoteDataModule() {
 
     @Singleton
     @Provides
     fun provideArtistRemoteDataSource(tmdbService: TMDBService) : ArtistRemoteDataSource{
         return ArtistRemoteDataSourceImpl(
             tmdbService,
-            apiKey
+            BuildConfig.API_KEY
         )
     }
 
@@ -28,7 +32,7 @@ class RemoteDataModule(private val apiKey : String) {
     fun provideMovieRemoteDataSource(tmdbService: TMDBService) : MovieRemoteDataSource {
         return MovieRemoteDataSourceImpl(
             tmdbService,
-            apiKey
+            BuildConfig.API_KEY
         )
     }
 
@@ -37,7 +41,7 @@ class RemoteDataModule(private val apiKey : String) {
     fun provideTvShowRemoteDataSource(tmdbService: TMDBService) : TvShowRemoteDataSource {
         return TvShowRemoteDataSourceImpl(
             tmdbService,
-            apiKey
+            BuildConfig.API_KEY
         )
     }
 

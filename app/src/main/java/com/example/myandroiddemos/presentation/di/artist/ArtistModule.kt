@@ -5,11 +5,16 @@ import com.example.myandroiddemos.domain.useCase.UpdateArtistsUseCase
 import com.example.myandroiddemos.presentation.artist.ArtistActivityViewModelFactory
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.components.SingletonComponent
 
+@InstallIn(ActivityComponent::class)
 @Module
 class ArtistModule {
 
-    @ArtistScope
+    @ActivityScoped
     @Provides
     fun provideArtistActivityViewModelFactory(
         getArtistsUseCase: GetArtistsUseCase,

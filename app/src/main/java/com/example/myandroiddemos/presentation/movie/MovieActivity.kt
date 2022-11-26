@@ -12,9 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myandroiddemos.R
 import com.example.myandroiddemos.databinding.ActivityMovieBinding
-import com.example.myandroiddemos.presentation.di.Injector
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MovieActivity : AppCompatActivity() {
 
     @Inject
@@ -29,10 +30,6 @@ class MovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie)
-
-        (application as Injector).createMovieSubComponent()
-            .inject(this)
-
         viewModel = ViewModelProvider(this, factory)[MovieActivityViewModel::class.java]
 
         initRv()

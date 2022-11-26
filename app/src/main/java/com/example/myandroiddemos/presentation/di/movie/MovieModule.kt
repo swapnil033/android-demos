@@ -8,11 +8,17 @@ import com.example.myandroiddemos.presentation.artist.ArtistActivityViewModelFac
 import com.example.myandroiddemos.presentation.movie.MovieActivityViewModelFactory
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
+@InstallIn(ActivityComponent::class)
 @Module
 class MovieModule {
 
-    @MovieScope
+    @ActivityScoped
     @Provides
     fun provideMovieActivityViewModelFactory(
         getMoviesUseCase: GetMoviesUseCase,

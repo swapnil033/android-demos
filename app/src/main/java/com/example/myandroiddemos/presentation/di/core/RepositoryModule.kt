@@ -17,8 +17,11 @@ import com.example.myandroiddemos.domain.repository.MovieRepository
 import com.example.myandroiddemos.domain.repository.TvShowsRepository
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
 class RepositoryModule {
 

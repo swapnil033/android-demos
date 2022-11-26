@@ -1,8 +1,11 @@
 package com.example.myandroiddemos.presentation.di.core
 
+import com.example.myandroiddemos.BuildConfig
 import com.example.myandroiddemos.data.api.TMDBService
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -10,8 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
-class NetModule(private val baseUrl : String) {
+class NetModule {
 
     private val interceptor = HttpLoggingInterceptor().apply {
         this.level = HttpLoggingInterceptor.Level.BODY
@@ -28,7 +32,7 @@ class NetModule(private val baseUrl : String) {
     @Provides
     fun provideRetrofit() : Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

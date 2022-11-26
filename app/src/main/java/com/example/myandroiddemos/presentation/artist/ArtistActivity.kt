@@ -9,11 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myandroiddemos.R
-import com.example.myandroiddemos.data.model.artist.Artist
 import com.example.myandroiddemos.databinding.ActivityArtistBinding
-import com.example.myandroiddemos.presentation.di.Injector
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ArtistActivity : AppCompatActivity() {
 
     @Inject
@@ -27,11 +27,6 @@ class ArtistActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_artist)
-
-
-        (application as Injector).createArtistSubComponent()
-            .inject(this)
-
         viewModel = ViewModelProvider(this, factory)[ArtistActivityViewModel::class.java]
 
         setRv()
