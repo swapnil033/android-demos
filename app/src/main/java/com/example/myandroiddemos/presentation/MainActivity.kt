@@ -1,8 +1,9 @@
-package com.example.myandroiddemos
+package com.example.myandroiddemos.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.example.myandroiddemos.R
 import com.example.myandroiddemos.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
