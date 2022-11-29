@@ -5,15 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myandroiddemos.data.util.Resource
 import com.example.myandroiddemos.databinding.FragmentNewsBinding
 import com.example.myandroiddemos.presentation.MainActivity
 import com.example.myandroiddemos.presentation.adapter.NewsAdapter
 import com.example.myandroiddemos.presentation.viewModel.NewsViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class NewsFragment : Fragment() {
 
     private lateinit var newsAdapter: NewsAdapter
@@ -22,6 +27,10 @@ class NewsFragment : Fragment() {
 
     private var country = "us"
     private var page = 1
+    private var pages = 0
+    private var isLastPage = false
+    private var isScrolling = false
+    private var isLoading = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +49,7 @@ class NewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (activity as MainActivity).viewModel
+        newsAdapter = (activity as MainActivity).newsAdapter
 
         initRecyclerView()
         viewNewsList()
@@ -62,6 +72,12 @@ class NewsFragment : Fragment() {
                     hideProgress()
                     response.data?.let {
                         newsAdapter.differ.submitList(it.articles?.toList())
+                        if(it.totalResults!! % 20 == 0){
+                            pages = it.totalResults!! / 20
+                        }else{
+                            pages = it.totalResults!! / 20 + 1
+                        }
+                        isLastPage = pages == page
                     }
                 }
             }
@@ -69,16 +85,43 @@ class NewsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        newsAdapter = NewsAdapter()
-        binding.rvHeadlineNews.adapter = newsAdapter
-
+        binding.rvHeadlineNews.apply {
+            adapter = newsAdapter
+            addOnScrollListener(this@NewsFragment.onScrollListener)
+        }
     }
 
     private fun showProgress(){
+        isLoading = true
         binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun hideProgress(){
+        isLoading = false
         binding.progressBar.visibility = View.GONE
+    }
+
+    private val onScrollListener = object : RecyclerView.OnScrollListener(){
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL)
+                isScrolling = true
+        }
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val layoutManager = binding.rvHeadlineNews.layoutManager as LinearLayoutManager
+            val sizeOfTheCurrentList = layoutManager.itemCount
+            val visibleItemCount = layoutManager.childCount
+            val topPosition = layoutManager.findFirstVisibleItemPosition()
+
+            val hasReachedToEnd = visibleItemCount + topPosition > sizeOfTheCurrentList
+            val shouldPaginate = !isLoading && !isLastPage && hasReachedToEnd && isScrolling
+            if(shouldPaginate){
+                page++
+                viewModel.getNewsHeadLines(country, page)
+                isScrolling = false
+            }
+        }
     }
 }
