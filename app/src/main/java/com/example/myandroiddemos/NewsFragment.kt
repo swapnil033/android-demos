@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,8 @@ import com.example.myandroiddemos.presentation.MainActivity
 import com.example.myandroiddemos.presentation.adapter.NewsAdapter
 import com.example.myandroiddemos.presentation.viewModel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -54,6 +57,7 @@ class NewsFragment : Fragment() {
 
         initRecyclerView()
         viewNewsList()
+        setSearchedNews()
     }
 
     private fun viewNewsList() {
@@ -130,6 +134,63 @@ class NewsFragment : Fragment() {
                 page++
                 viewModel.getNewsHeadLines(country, page)
                 isScrolling = false
+            }
+        }
+    }
+
+    //view searched news
+    fun setSearchedNews(){
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.searchNews("us", query.toString(), page)
+                viewSearchedNews()
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                MainScope().launch {
+                    viewModel.searchNews("us", newText.toString(), page)
+                    viewSearchedNews()
+                }
+                return false
+            }
+        })
+
+        binding.searchView.setOnCloseListener(object : SearchView.OnCloseListener{
+            override fun onClose(): Boolean {
+                initRecyclerView()
+                viewNewsList()
+                return false
+            }
+        })
+    }
+
+    fun viewSearchedNews(){
+
+
+        viewModel.searchedNews.observe(viewLifecycleOwner){response ->
+            when(response){
+                is Resource.Loading -> {
+                    showProgress()
+                }
+                is Resource.Error -> {
+                    hideProgress()
+                    response.message?.let {
+                        Toast.makeText(requireActivity(), "error occurred : $it", Toast.LENGTH_LONG).show()
+                    }
+                }
+                is Resource.Success -> {
+                    hideProgress()
+                    response.data?.let {
+                        newsAdapter.differ.submitList(it.articles?.toList())
+                        if(it.totalResults!! % 20 == 0){
+                            pages = it.totalResults!! / 20
+                        }else{
+                            pages = it.totalResults!! / 20 + 1
+                        }
+                        isLastPage = pages == page
+                    }
+                }
             }
         }
     }
