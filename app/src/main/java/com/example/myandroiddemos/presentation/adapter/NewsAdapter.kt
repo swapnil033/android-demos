@@ -19,6 +19,12 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
         }
     }
 
+    private var onItemClickListener : ((Article) -> Unit)? = null
+
+    fun setOnItemClickListener(listener : (Article) -> Unit){
+        onItemClickListener = listener
+    }
+
     val differ = AsyncListDiffer(this, callback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -28,6 +34,11 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.binding.article = differ.currentList[position]
+        holder.binding.root.setOnClickListener {
+            onItemClickListener?.let {
+                it(differ.currentList[position])
+            }
+        }
     }
 
     override fun getItemCount(): Int {

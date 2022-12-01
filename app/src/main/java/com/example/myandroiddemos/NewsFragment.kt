@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myandroiddemos.data.util.Resource
@@ -85,6 +86,14 @@ class NewsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
+
+        newsAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("selected_article", it)
+            }
+            findNavController().navigate(R.id.action_newsFragment_to_infoFragment, bundle)
+        }
+
         binding.rvHeadlineNews.apply {
             adapter = newsAdapter
             addOnScrollListener(this@NewsFragment.onScrollListener)
@@ -115,7 +124,7 @@ class NewsFragment : Fragment() {
             val visibleItemCount = layoutManager.childCount
             val topPosition = layoutManager.findFirstVisibleItemPosition()
 
-            val hasReachedToEnd = visibleItemCount + topPosition > sizeOfTheCurrentList
+            val hasReachedToEnd = visibleItemCount + topPosition >= sizeOfTheCurrentList
             val shouldPaginate = !isLoading && !isLastPage && hasReachedToEnd && isScrolling
             if(shouldPaginate){
                 page++
