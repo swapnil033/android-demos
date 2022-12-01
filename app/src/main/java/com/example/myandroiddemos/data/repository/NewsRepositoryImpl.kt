@@ -3,6 +3,7 @@ package com.example.myandroiddemos.data.repository
 import com.example.myandroiddemos.data.api.NewsAPIService
 import com.example.myandroiddemos.data.model.APIResponse
 import com.example.myandroiddemos.data.model.Article
+import com.example.myandroiddemos.data.repository.dataSource.NewsLocalDataSource
 import com.example.myandroiddemos.data.repository.dataSource.NewsRemoteDataSource
 import com.example.myandroiddemos.data.util.Resource
 import com.example.myandroiddemos.domain.repository.NewsRepository
@@ -10,7 +11,8 @@ import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 class NewsRepositoryImpl(
-    private val newsRemoteDataSource : NewsRemoteDataSource
+    private val newsRemoteDataSource : NewsRemoteDataSource,
+    private val newsLocalDataSource : NewsLocalDataSource,
 ) : NewsRepository {
     override suspend fun getNewsHeadLines(country : String, page : Int): Resource<APIResponse> {
         return responseToResource(newsRemoteDataSource.getTopHeadlines(country, page))
@@ -24,8 +26,8 @@ class NewsRepositoryImpl(
         return responseToResource(newsRemoteDataSource.getSearched(country, searchQuery, page))
     }
 
-    override suspend fun saveNews(article: Article) {
-        TODO("Not yet implemented")
+    override suspend fun saveNews(article: Article) : Long {
+        return newsLocalDataSource.saveArticle(article)
     }
 
     override suspend fun deleteNews(article: Article) {

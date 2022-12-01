@@ -5,14 +5,14 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.myandroiddemos.data.model.APIResponse
+import com.example.myandroiddemos.data.model.Article
 import com.example.myandroiddemos.data.util.Resource
 import com.example.myandroiddemos.domain.useCase.GetNewsHeadlinesUseCase
 import com.example.myandroiddemos.domain.useCase.GetSearchNewsUseCase
+import com.example.myandroiddemos.domain.useCase.SaveNewsUseCase
+import com.example.myandroiddemos.presentation.util.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -20,7 +20,12 @@ class NewsViewModel(
     private val app : Application,
     private val getNewsHeadlinesUseCase: GetNewsHeadlinesUseCase,
     private val getSearchNewsUseCase: GetSearchNewsUseCase,
+    private val saveNewsUseCase: SaveNewsUseCase,
 ) : AndroidViewModel(app) {
+
+    private val _message = MutableLiveData<Event<String>>()
+    val message : LiveData<Event<String>>
+        get() = _message
 
     val newsHeadLines : MutableLiveData<Resource<APIResponse>> = MutableLiveData()
 
@@ -72,6 +77,17 @@ class NewsViewModel(
         } else{
             searchedNews.postValue(Resource.Error("No Internet"))
         }
+    }
+
+    fun saveData(article: Article) = viewModelScope.launch {
+        val newRowCount = saveNewsUseCase.execute(article)
+
+        if (newRowCount > -1)
+            _message.value = Event("Article Save Successfully!")
+        else
+            _message.value = Event("Error : Article not Saved")
+
+
     }
 
 }

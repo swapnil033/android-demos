@@ -2,7 +2,9 @@ package com.example.myandroiddemos.presentation.di
 
 import android.app.Application
 import com.example.myandroiddemos.domain.useCase.GetNewsHeadlinesUseCase
+import com.example.myandroiddemos.domain.useCase.GetSavedNewsCase
 import com.example.myandroiddemos.domain.useCase.GetSearchNewsUseCase
+import com.example.myandroiddemos.domain.useCase.SaveNewsUseCase
 import com.example.myandroiddemos.presentation.viewModelFactory.NewsViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -19,8 +21,9 @@ class FactoryModule {
     fun provideNewsViewModelFactory(
         app : Application,
         getNewsHeadlinesUseCase: GetNewsHeadlinesUseCase,
-        getSearchNewsUseCase: GetSearchNewsUseCase
+        getSearchNewsUseCase: GetSearchNewsUseCase,
+        saveNewsUseCase: SaveNewsUseCase,
     ) : NewsViewModelFactory {
-        return NewsViewModelFactory(app, getNewsHeadlinesUseCase, getSearchNewsUseCase)
+        return NewsViewModelFactory(app, getNewsHeadlinesUseCase, getSearchNewsUseCase, saveNewsUseCase)
     }
 }
