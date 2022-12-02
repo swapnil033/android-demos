@@ -26,7 +26,12 @@ class UseCaseModule {
     }
 
     @Provides
-    fun provideGetSavedNewsUseCase(newsRepository: NewsRepository) : SaveNewsUseCase {
+    fun provideSaveNewsUseCase(newsRepository: NewsRepository) : SaveNewsUseCase {
         return SaveNewsUseCase(newsRepository)
+    }
+
+    @Provides
+    fun provideGetSavedNewsUseCase(newsRepository: NewsRepository) : GetSavedNewsCase {
+        return GetSavedNewsCase(newsRepository)
     }
 }

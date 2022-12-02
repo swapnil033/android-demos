@@ -23,7 +23,14 @@ class FactoryModule {
         getNewsHeadlinesUseCase: GetNewsHeadlinesUseCase,
         getSearchNewsUseCase: GetSearchNewsUseCase,
         saveNewsUseCase: SaveNewsUseCase,
+        getSavedNewsCase: GetSavedNewsCase,
     ) : NewsViewModelFactory {
-        return NewsViewModelFactory(app, getNewsHeadlinesUseCase, getSearchNewsUseCase, saveNewsUseCase)
+        return NewsViewModelFactory(
+            app,
+            getNewsHeadlinesUseCase,
+            getSearchNewsUseCase,
+            saveNewsUseCase,
+            getSavedNewsCase
+        )
     }
 }
