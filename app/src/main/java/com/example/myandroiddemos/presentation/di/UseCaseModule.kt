@@ -1,10 +1,7 @@
 package com.example.myandroiddemos.presentation.di
 
 import com.example.myandroiddemos.domain.repository.NewsRepository
-import com.example.myandroiddemos.domain.useCase.GetNewsHeadlinesUseCase
-import com.example.myandroiddemos.domain.useCase.GetSavedNewsCase
-import com.example.myandroiddemos.domain.useCase.GetSearchNewsUseCase
-import com.example.myandroiddemos.domain.useCase.SaveNewsUseCase
+import com.example.myandroiddemos.domain.useCase.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,5 +30,10 @@ class UseCaseModule {
     @Provides
     fun provideGetSavedNewsUseCase(newsRepository: NewsRepository) : GetSavedNewsCase {
         return GetSavedNewsCase(newsRepository)
+    }
+
+    @Provides
+    fun provideDeleteSavedNewsUseCase(newsRepository: NewsRepository) : DeleteSavedNewsUseCase {
+        return DeleteSavedNewsUseCase(newsRepository)
     }
 }

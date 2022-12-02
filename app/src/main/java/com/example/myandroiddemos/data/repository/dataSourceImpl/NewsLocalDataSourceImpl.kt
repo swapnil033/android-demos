@@ -15,4 +15,8 @@ class NewsLocalDataSourceImpl(
     override fun getAllSavedArticles(): Flow<List<Article>> {
         return articleDao.getAllSavedArticles()
     }
+
+    override suspend fun deleteArticle(article: Article) {
+        return articleDao.deleteArticle(article)
+    }
 }

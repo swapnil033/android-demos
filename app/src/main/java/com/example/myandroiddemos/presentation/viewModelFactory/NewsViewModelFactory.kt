@@ -3,10 +3,7 @@ package com.example.myandroiddemos.presentation.viewModelFactory
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.myandroiddemos.domain.useCase.GetNewsHeadlinesUseCase
-import com.example.myandroiddemos.domain.useCase.GetSavedNewsCase
-import com.example.myandroiddemos.domain.useCase.GetSearchNewsUseCase
-import com.example.myandroiddemos.domain.useCase.SaveNewsUseCase
+import com.example.myandroiddemos.domain.useCase.*
 import com.example.myandroiddemos.presentation.viewModel.NewsViewModel
 
 class NewsViewModelFactory(
@@ -15,6 +12,7 @@ class NewsViewModelFactory(
     private val getSearchNewsUseCase: GetSearchNewsUseCase,
     private val saveNewsUseCase: SaveNewsUseCase,
     private val getSavedNewsCase: GetSavedNewsCase,
+    private val deleteSavedNewsUseCase: DeleteSavedNewsUseCase
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -23,7 +21,8 @@ class NewsViewModelFactory(
             getNewsHeadlinesUseCase,
             getSearchNewsUseCase,
             saveNewsUseCase,
-            getSavedNewsCase
+            getSavedNewsCase,
+            deleteSavedNewsUseCase
         ) as T
     }
 }
